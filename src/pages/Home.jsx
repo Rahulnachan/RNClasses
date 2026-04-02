@@ -5,7 +5,7 @@ import Hero from "../components/home/Hero";
 import FeatureBlock from "../components/home/FeatureBlock";
 import Courses from "../components/home/CoursesHome";
 import Dashboard from "../components/home/Dashbord";
-import WhyChooseUs from "../components/home/WhyChoose"; // Fixed import name
+import WhyChoose from "../components/home/WhyChoose"; // Fixed import name
 import HighlightSection from "../components/home/HighlightSection";
 import AnimationWrapper from "../components/AnimationWrapper";
 import TestimonialSection from "../components/about/TestimonialSection"; 
@@ -179,7 +179,7 @@ const Home = () => {
         <AnimationWrapper direction="right">
           <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <WhyChooseUs />
+              <WhyChoose />
             </div>
           </section>
         </AnimationWrapper>
