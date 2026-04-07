@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // Your Spring Boot backend URL - Updated to port 8084
-const BASE_URL = "http://localhost:8085/api";
-
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8085/api";
 console.log('🔧 Connecting to Spring Boot Backend:', BASE_URL);
 console.log('🔧 Environment:', process.env.NODE_ENV);
 
