@@ -2,7 +2,7 @@ import API from "./axiosInstance";
 
 export const sendEmailOTP = async (email) => {
   try {
-    const response = await API.post("/otp/send-email", { email });
+    const response = await API.post("/api/otp/send-email", { email });
     return response.data;
   } catch (error) {
     console.error("Error sending email OTP:", error);
@@ -12,7 +12,7 @@ export const sendEmailOTP = async (email) => {
 
 export const sendMobileOTP = async (phone) => {
   try {
-    const response = await API.post("/otp/send-mobile", { phone });
+    const response = await API.post("/api/otp/send-mobile", { phone });
     return response.data;
   } catch (error) {
     console.error("Error sending mobile OTP:", error);
@@ -22,7 +22,7 @@ export const sendMobileOTP = async (phone) => {
 
 export const verifyOTP = async (identifier, otp, type) => {
   try {
-    const response = await API.post("/otp/verify", { identifier, otp, type });
+    const response = await API.post("/api/otp/verify", { identifier, otp, type });
     return response.data;
   } catch (error) {
     console.error("Error verifying OTP:", error);
