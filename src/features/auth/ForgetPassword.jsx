@@ -63,10 +63,23 @@ const ForgotPassword = () => {
       return;
     }
 
-    // 🔥 FIX: Don't call backend verification - just move to next step
-    // The OTP will be verified in the reset-password step
-    setStep(3);
-    toast.success('OTP verified! Please set your new password.');
+    setLoading(true);
+    try {
+      // 🔥 FIX: Actually verify OTP with backend
+      const response = await OTPService.verifyOTP(identifier, otpValue, method.toUpperCase());
+      
+      if (response.success) {
+        setStep(3);
+        toast.success('OTP verified! Please set your new password.');
+      } else {
+        toast.error(response.message || 'Invalid OTP');
+      }
+    } catch (error) {
+      console.error('OTP verify error:', error);
+      toast.error('Failed to verify OTP');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleResetPassword = async () => {
@@ -87,12 +100,11 @@ const ForgotPassword = () => {
     try {
       const otpValue = otp.join('');
       
-      // 🔥 FIX: Call reset-password directly (verifies OTP internally)
-      const response = await API.post('/auth/reset-password', {
+      // 🔥 FIX: Add /api prefix to the endpoint
+      const response = await API.post('/api/auth/reset-password', {
         identifier,
         otp: otpValue,
-        newPassword,
-        method
+        newPassword
       });
 
       if (response.data.success) {
@@ -246,7 +258,7 @@ const ForgotPassword = () => {
                   disabled={loading}
                   className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50"
                 >
-                  Verify OTP
+                  {loading ? 'Verifying...' : 'Verify OTP'}
                 </button>
 
                 <div className="text-center">
