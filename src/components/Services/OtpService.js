@@ -4,7 +4,7 @@ class OTPService {
   // Send OTP via Email
   static async sendEmailOTP(email) {
     try {
-      const response = await API.post("/otp/send-email", { email });
+      const response = await API.post("/api/otp/send-email", { email });
       return response.data;
     } catch (error) {
       console.error("Error sending email OTP:", error);
@@ -15,7 +15,7 @@ class OTPService {
   // Send OTP via Mobile
   static async sendMobileOTP(phone) {
     try {
-      const response = await API.post("/otp/send-mobile", { phone });
+      const response = await API.post("/api/otp/send-mobile", { phone });
       return response.data;
     } catch (error) {
       console.error("Error sending mobile OTP:", error);
@@ -23,16 +23,16 @@ class OTPService {
     }
   }
 
-  // Verify OTP - FIXED VERSION
+  // Verify OTP
   static async verifyOTP(identifier, otp, type = 'email') {
     try {
-      // 🔥 FIX: Convert to UPPERCASE to match backend
+      // Convert type to UPPERCASE to match backend (EMAIL, MOBILE)
       const uppercaseType = type.toUpperCase();
       
-      const response = await API.post("/otp/verify", { 
+      const response = await API.post("/api/otp/verify", { 
         identifier, 
         otp, 
-        type: uppercaseType  // Now sends "EMAIL" instead of "email"
+        type: uppercaseType
       });
       return response.data;
     } catch (error) {
